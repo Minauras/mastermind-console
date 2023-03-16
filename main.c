@@ -38,6 +38,15 @@ void init_game(void){
 }
 
 void draw_board(void){
+    system("cls");
+
+    printf("MASTERMIND\r\n");
+    printf("Find the code of 4 A-F letters\r\n");
+    printf("\t* - correct letter in the correct place\r\n");
+    printf("\tO - correct letter in the wrong place\r\n");
+    printf("\t- - wrong letter\r\n");
+    printf("The hints are not necessarily given in order\r\n");
+    
     printf("  ________________\r\n");
 
     for(int i = 0; i < NTURNS; i++){
