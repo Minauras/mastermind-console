@@ -1,0 +1,22 @@
+  ________________
+>| A B C D | **O- | (> shows the current guess)
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ | . . . . | .... |
+ |---------|------|
+ |*A*B*C*D*|      | (solution shown at the end of the game)
+ |_________|______|
+
+The game is played with the letters A-F
+* indicates a letter placed correctly
+O indicates a correct letter in the wrong placed
+- indicates a wrong letter
+These hints are not shown in order
