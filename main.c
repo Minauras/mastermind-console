@@ -5,7 +5,7 @@
 #define NTURNS 12
 #define NPEGS 4
 
-int current_turn = 0;
+int current_turn = -1;
 char board[NTURNS][NPEGS];
 char hints[NTURNS][NPEGS];
 
@@ -50,7 +50,7 @@ void draw_board(void){
 }
 
 void draw_row(int turn){
-    if(turn == current_turn) printf(">");
+    if(turn == current_turn + 1) printf(">");
     else printf(" ");
 
     printf("| %c %c %c %c | %c%c%c%c |\r\n",
