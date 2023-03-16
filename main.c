@@ -7,6 +7,7 @@
 #define NPEGS 4
 
 int current_turn = -1;
+int game_ended = 0;
 char board[NTURNS][NPEGS];
 char hints[NTURNS][NPEGS];
 char solution[NPEGS];
@@ -63,7 +64,12 @@ void draw_board(void){
     }
 
     printf(" |---------|------|\r\n");
-    printf(" |*********|      |\r\n");
+    if(game_ended){
+        printf(" |*%c*%c*%c*%c*|      |\r\n", solution[0], solution[1], solution[2], solution[3]);
+    }
+    else{
+        printf(" |*********|      |\r\n");
+    }
     printf(" |_________|______|\r\n");
 }
 
