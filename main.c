@@ -161,6 +161,12 @@ void get_hints(void){
     for(int i = 0; i < NPEGS; i++){
         hints[current_turn][i] = hints_ordered[i];
     }
+
+    // And if they are all correct, end the game
+    for(int i = 0; i < NPEGS; i++){
+        if(hints[current_turn][i] != '*') return;
+    }
+    game_ended = 1;
 }
 
 int compare_hints(const void * a, const void * b){
