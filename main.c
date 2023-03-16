@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define NTURNS 12
 #define NPEGS 4
@@ -8,6 +9,7 @@
 int current_turn = -1;
 char board[NTURNS][NPEGS];
 char hints[NTURNS][NPEGS];
+char solution[NPEGS];
 
 void init_game(void);
 void draw_board(void);
@@ -29,11 +31,18 @@ int main(void) {
 }
 
 void init_game(void){
+    // Reset board and hints
     for(int i = 0; i < NTURNS; i++){
         for(int j = 0; j < NPEGS; j++){
             board[i][j] = '.';
             hints[i][j] = '.';
         }
+    }
+
+    // Choose random solution
+    srand(time(NULL));
+    for(int i = 0; i < NPEGS; i++){
+        solution[i] = 'A' + (rand() % 6);
     }
 }
 
