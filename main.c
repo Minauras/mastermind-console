@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 
 #define NTURNS 12
@@ -17,6 +18,8 @@ void draw_board(void);
 void draw_row(int turn);
 void get_guess(void);
 void flush_input(void);
+void get_hints(void);
+int compare_hints(const void * a, const void * b);
 
 int main(void) {
     init_game();
@@ -25,6 +28,7 @@ int main(void) {
 
     for(current_turn = 0; current_turn < NTURNS; current_turn++){
         get_guess();
+        get_hints();
         draw_board();
     }
 
@@ -107,4 +111,62 @@ void get_guess(void){
 void flush_input(void){
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void get_hints(void){
+    char hints_ordered[NPEGS];
+    bool board_checked[NPEGS] = {false};
+    bool solution_checked[NPEGS] = {false};
+
+    // Check correctness
+    for(int i = 0; i < NPEGS; i++){
+        if(board[current_turn][i] == solution[i]){
+            hints_ordered[i] = '*';
+            board_checked[i] = true;
+            solution_checked[i] = true;
+        }
+    }
+
+    // For those non-checked, check misplaced-ness
+    for(int i = 0; i < NPEGS; i++){
+        if(!board_checked[i]){
+            for(int j = 0; j < NPEGS; j++){
+                if(!solution_checked[j]){
+                    if(board[current_turn][i] == solution[j]){
+                        hints_ordered[i] = 'O';
+                        board_checked[i] = true;
+                        solution_checked[j] = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // For the remaining, state wrongness
+    for(int i = 0; i < NPEGS; i++){
+        if(!board_checked[i]){
+            hints_ordered[i] = '-';
+        }
+    }
+
+    // Right now the hints are ordered, so let's unorder them by sorting them by type
+    qsort(hints_ordered, NPEGS, sizeof(char), compare_hints);
+
+    // Finally, let's output the hints
+    for(int i = 0; i < NPEGS; i++){
+        hints[current_turn][i] = hints_ordered[i];
+    }
+}
+
+int compare_hints(const void * a, const void * b){
+    char x = *(char*) a;
+    char y = *(char*) b;
+
+    if(x == y)
+        return 0;
+    if(x == '*' || (x == 'O' && y == '-'))
+        return -1;
+
+    return 1;
 }
