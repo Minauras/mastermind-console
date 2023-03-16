@@ -8,7 +8,7 @@
 #define NPEGS 4
 
 int current_turn = -1;
-int game_ended = 0;
+bool game_ended = false;
 char board[NTURNS][NPEGS];
 char hints[NTURNS][NPEGS];
 char solution[NPEGS];
@@ -30,7 +30,11 @@ int main(void) {
         get_guess();
         get_hints();
         draw_board();
+        if(game_ended) return 0;
     }
+
+    game_ended = 1;
+    draw_board();
 
     return 0;
 }
